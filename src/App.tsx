@@ -3,11 +3,17 @@
 // import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react';
+import { 
+  VStack,
+  IconButton
+} from "@chakra-ui/react"
 import YouTube, { YouTubeProps } from 'react-youtube';
 
 // Main page screen
 // 1. Hot reload [good]
 // 2. Vite 
+
+// Run: npm run dev
 
 function App() {
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
@@ -15,19 +21,28 @@ function App() {
     event.target.playVideo();
   }
 
-  const perf = window.performance.getEntriesByType("navigation")[0];
-  const loadTime: number =
-          (perf as PerformanceNavigationTiming).loadEventEnd -
-          (perf as PerformanceNavigationTiming).requestStart;
-  console.log(Math.abs(loadTime))
+  // const perf = window.performance.getEntriesByType("navigation")[0];
+  // const loadTime: number =
+  //         (perf as PerformanceNavigationTiming).loadEventEnd -
+  //         (perf as PerformanceNavigationTiming).requestStart;
+  // console.log(Math.abs(loadTime))
 
   // https://developers.google.com/youtube/player_parameters
+  // h, w: 390, 640
+
+  var width = window.innerWidth * 0.8
+  console.log(`Width: ${width}`)
+
+  var height = (window.innerHeight - .1) * 0.8
+  console.log(`Height: ${height}`)
+  /* <iframe width="560" height="315" src="https://www.youtube.com/embed/jfKfPfyJRdk?si=8BcShXw_CuWtS7pY" */
+
   const opts: YouTubeProps['opts'] = {
-    height: '390',
-    width: '640',
+    width: width,
+    height: height,
     playerVars: {
       autoplay: 1, 
-      controls: 0,
+      controls: 1,
       rel: 0,
       showinfo: 0,
       disablekb: 1,
@@ -35,15 +50,15 @@ function App() {
     },
   };
 
-
-
-
   return (
     <>
-      <YouTube 
-        videoId="dQw4w9WgXcQ" 
-        opts={opts} 
-        onReady={onPlayerReady} />
+      <VStack>
+        <YouTube 
+          videoId="jfKfPfyJRdk?si=8BcShXw_CuWtS7pY" 
+          opts={opts} 
+          onReady={onPlayerReady} 
+        />
+      </VStack>
     </>
   )
 }
